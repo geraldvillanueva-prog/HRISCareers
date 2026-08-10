@@ -206,12 +206,11 @@
           <select id="position_applied" onchange="onPositionChange()">
             <option value="">Select…</option>
             <option>Tax and Accounting Supervisor</option>
-            <option>Tax Associate</option>
-            <option>Senior Tax Consultant</option>
-            <option>Bookkeeper</option>
-            <option>Audit Associate</option>
-            <option>Payroll Specialist</option>
-            <option>Business Consultant</option>
+            <option>Project Associate</option>
+            <option>Marketing & Sales</option>
+            <option>Document Control Assistant</option>
+            <option>HR Assistant</option>
+            <option>Jr. Accountant</option>
             <option>Administrative Assistant</option>
             <option>IT Staff</option>
             <option>Other</option>
@@ -650,8 +649,8 @@ function showErrorBanner(msg){
 // the two values below with your real project values from
 // supabase.com → your project → Settings → API.
 // ═══════════════════════════════════════════════════════════
-var SUPABASE_URL  = 'https://your-project.supabase.co'; // ← replace
-var SUPABASE_ANON = 'your-anon-public-key';              // ← replace
+var SUPABASE_URL  = 'https://cvbjrjodlkgdnupbmncb.supabase.co'; // ← replace
+var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2Ympyam9kbGtnZG51cGJtbmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzM1ODgsImV4cCI6MjEwMTk0OTU4OH0.GQguBHqswLLdw7zoUdwnOJtBDIFdHUhDCH6dUPoHf68';              // ← replace
 
 function supabaseConfigured(){
   return SUPABASE_URL && !SUPABASE_URL.includes('your-project') &&
