@@ -205,15 +205,18 @@
         <div class="field"><label>Position Applied For <span class="req">*</span></label>
           <select id="position_applied" onchange="onPositionChange()">
             <option value="">Select…</option>
-            <option>Tax and Accounting Supervisor</option>
-            <option>Tax Associate</option>
-            <option>Senior Tax Consultant</option>
-            <option>Bookkeeper</option>
-            <option>Audit Associate</option>
-            <option>Payroll Specialist</option>
-            <option>Business Consultant</option>
+            <option>HR Generalist</option>
+            <option>IT Officer</option>
+            <option>Tax & Accounting Supervisor</option>
+            <option>Sr. Accountant</option>
+            <option>Jr. Accountant</option>
+            <option>Finance Supervisor</option>
+            <option>Finance Associate</option>
+            <option>Project Supervisor</option>
+            <option>Sr. Sales & Marketing Officer</option>
+            <option>Marketing Assistant</option>
+            <option>Document Control Officer</option>
             <option>Administrative Assistant</option>
-            <option>IT Staff</option>
             <option>Other</option>
           </select>
         </div>
@@ -306,50 +309,70 @@
 // name, not the assigned value, so this order matters.
 // ═══════════════════════════════════════════════════════════
 var JOB_OVERVIEWS = {
-  'Tax Associate': {
-    about: 'Support HMB\'s tax compliance team in preparing and filing accurate returns for a range of clients, working closely with senior consultants to keep filings on schedule and audit-ready.',
-    responsibilities: ['Prepare and file BIR returns (VAT, withholding, income tax) for assigned clients','Reconcile client books against tax filings and flag discrepancies','Assist with monthly, quarterly, and annual compliance deadlines','Respond to routine BIR notices and client queries under supervision'],
-    qualifications: ['Bachelor\'s degree in Accountancy or related field','Familiarity with eBIRForms/eFPS a plus, but willing to train','Detail-oriented and comfortable with deadline-driven work','Good written and verbal communication in English and Filipino']
+  'HR Generalist': {
+    about: 'Support HMB\'s HR function across the employee lifecycle — recruitment, onboarding, records, and day-to-day employee relations.',
+    responsibilities: ['Assist with end-to-end recruitment and onboarding','Maintain accurate 201 files and employee records','Support timekeeping, leave, and attendance administration','Help coordinate performance reviews and employee engagement activities'],
+    qualifications: ['Bachelor\'s degree in Human Resources, Psychology, or related field','Experience with HR administration or recruitment a plus','Organized and comfortable handling confidential information','Good interpersonal and communication skills']
   },
-  'Senior Tax Consultant': {
-    about: 'Lead tax planning and advisory engagements for HMB\'s client portfolio, mentoring associates while managing more complex compliance and advisory work directly with clients.',
-    responsibilities: ['Review and sign off on tax filings prepared by associates','Advise clients on tax planning, structuring, and BIR compliance strategy','Represent clients in BIR audits, assessments, and disputes','Mentor and review the work of junior tax staff'],
-    qualifications: ['CPA license required','5+ years of relevant tax practice experience','Strong working knowledge of Philippine tax law and BIR procedure','Proven experience handling BIR audits or assessments']
+  'IT Officer': {
+    about: 'Keep HMB\'s internal systems, network, and software running reliably, supporting every department\'s day-to-day technology needs.',
+    responsibilities: ['Provide day-to-day IT support across departments','Maintain and troubleshoot internal systems, network, and hardware','Support and help maintain internal software tools and automation systems','Assist with system administration, access management, and basic security practices'],
+    qualifications: ['Background in IT, Computer Science, or related field','Comfortable troubleshooting hardware, network, and software issues','Basic scripting or development exposure a plus','Dependable and able to work independently']
   },
-  'Bookkeeper': {
-    about: 'Maintain accurate, up-to-date books for a portfolio of clients, ensuring transactions are properly recorded and financial statements are ready for review each cycle.',
-    responsibilities: ['Record day-to-day transactions across assigned client accounts','Reconcile bank statements and subsidiary ledgers monthly','Prepare trial balances and basic financial statements for review','Maintain organized, audit-ready supporting documentation'],
-    qualifications: ['Background in bookkeeping, accounting, or related coursework','Working knowledge of QuickBooks, Excel, or similar tools','Comfortable managing multiple client accounts at once','Strong attention to detail and accuracy']
+  'Tax & Accounting Supervisor': {
+    about: 'Lead HMB\'s tax and accounting engagements for a portfolio of clients, supervising junior accountants while directly handling complex compliance work and BIR-facing matters.',
+    responsibilities: ['Supervise and review the work of Junior Accountants','Handle BIR audits, Letters of Authority (LOAs), and tax assessments directly','Represent clients in discussions with BIR examiners and revenue officers','Oversee tax and accounting deliverables for assigned clients'],
+    qualifications: ['CPA required','At least 5 years of total relevant experience in tax and accounting','At least 2 years of experience as a Supervisor or Senior supervising Jr. Accountants','Direct experience handling BIR audits or tax assessments','Willing to work in San Pedro, Laguna and perform field work as needed']
   },
-  'Audit Associate': {
-    about: 'Join HMB\'s audit team performing fieldwork and testing across client engagements, gaining hands-on exposure to a range of industries under the guidance of experienced auditors.',
-    responsibilities: ['Perform audit fieldwork and testing per engagement plans','Prepare working papers and supporting schedules','Assist in drafting audit findings and management letters','Coordinate with client staff to gather required documentation'],
-    qualifications: ['Bachelor\'s degree in Accountancy','CPA license or actively pursuing one preferred','Willingness to travel to client sites as needed','Strong analytical and documentation skills']
+  'Sr. Accountant': {
+    about: 'Take ownership of the full accounting cycle for a portfolio of clients, reviewing the work of junior staff and ensuring books are accurate and audit-ready.',
+    responsibilities: ['Review and finalize journal entries, reconciliations, and financial statements','Supervise and guide Junior Accountants','Ensure compliance with financial reporting standards and deadlines','Liaise with clients on accounting matters'],
+    qualifications: ['Bachelor\'s degree in Accountancy','CPA preferred','At least 3 years of relevant accounting experience','Strong knowledge of Philippine financial reporting standards']
   },
-  'Payroll Specialist': {
-    about: 'Own end-to-end payroll processing for HMB\'s clients, ensuring employees are paid accurately and on time while staying compliant with statutory contribution requirements.',
-    responsibilities: ['Process semi-monthly or monthly payroll runs for assigned clients','Compute and remit SSS, PhilHealth, Pag-IBIG, and withholding tax','Reconcile payroll registers against attendance and leave records','Respond to employee payroll queries and resolve discrepancies'],
-    qualifications: ['Experience in payroll processing or HR administration','Working knowledge of Philippine statutory contribution rules','Comfortable with Excel-based payroll computations','High accuracy and confidentiality with sensitive data']
+  'Jr. Accountant': {
+    about: 'Support the accounting team in maintaining accurate books for HMB\'s clients, gaining hands-on experience across a range of accounting functions.',
+    responsibilities: ['Record and reconcile day-to-day transactions','Prepare supporting schedules and draft financial statements for review','Assist with month-end and year-end closing','Maintain organized, audit-ready documentation'],
+    qualifications: ['Bachelor\'s degree in Accountancy or related field','Fresh graduates welcome to apply','Detail-oriented and comfortable with deadline-driven work','Working knowledge of Excel and accounting software a plus']
   },
-  'Business Consultant': {
-    about: 'Work directly with client-owners on business registration, compliance structuring, and operational advisory, helping small and mid-sized businesses navigate regulatory requirements.',
-    responsibilities: ['Advise clients on business registration and compliance requirements','Assist with permits, licensing, and government agency coordination','Support client onboarding and ongoing advisory relationships','Prepare business compliance reports and recommendations'],
-    qualifications: ['Background in business, accounting, or related field','Comfortable engaging directly with client-owners','Familiarity with Philippine business registration processes a plus','Strong organizational and follow-through skills']
+  'Finance Supervisor': {
+    about: 'Oversee HMB\'s finance operations, supervising the finance team and ensuring accurate financial reporting and controls.',
+    responsibilities: ['Supervise the finance team\'s day-to-day operations','Review financial reports, budgets, and cash flow statements','Ensure internal controls and compliance with company policies','Coordinate with management on financial planning'],
+    qualifications: ['Bachelor\'s degree in Accountancy, Finance, or related field','At least 3 years of relevant supervisory experience','Strong analytical and leadership skills','CPA a plus']
+  },
+  'Finance Associate': {
+    about: 'Support HMB\'s finance team with day-to-day financial transactions, reporting, and recordkeeping.',
+    responsibilities: ['Process financial transactions and maintain accurate records','Assist in preparing financial reports and budget monitoring','Support accounts payable/receivable functions','Assist with reconciliations and audits'],
+    qualifications: ['Bachelor\'s degree in Accountancy, Finance, or related field','Detail-oriented with good numerical skills','Working knowledge of Excel','Willing to learn and grow within the finance team']
+  },
+  'Project Supervisor': {
+    about: 'Oversee the planning and execution of client engagements or internal projects, coordinating teams and ensuring deliverables are met on time.',
+    responsibilities: ['Plan, monitor, and supervise project timelines and deliverables','Coordinate across departments and team members','Report project status and issues to management','Ensure quality and client satisfaction on assigned projects'],
+    qualifications: ['Bachelor\'s degree in a relevant field','Experience supervising teams or projects','Strong organizational and communication skills','Comfortable managing multiple priorities at once']
+  },
+  'Sr. Sales & Marketing Officer': {
+    about: 'Drive HMB\'s client acquisition and brand presence, leading sales and marketing initiatives to grow the firm\'s client base.',
+    responsibilities: ['Develop and execute sales and marketing strategies','Manage client leads and the sales pipeline','Oversee marketing materials, campaigns, and brand presence','Mentor junior marketing staff'],
+    qualifications: ['Bachelor\'s degree in Marketing, Business, or related field','At least 3 years of relevant sales or marketing experience','Strong communication and negotiation skills','Experience in professional services marketing a plus']
+  },
+  'Marketing Assistant': {
+    about: 'Support HMB\'s marketing efforts — from content creation to campaign coordination — helping grow the firm\'s visibility and client base.',
+    responsibilities: ['Assist in creating marketing materials and content','Support social media and campaign coordination','Help maintain the company website and marketing collateral','Assist with events and client outreach activities'],
+    qualifications: ['Bachelor\'s degree in Marketing, Communications, or related field','Familiarity with social media and basic design tools a plus','Creative, organized, and detail-oriented','Good written communication skills']
+  },
+  'Document Control Officer': {
+    about: 'Maintain the integrity and organization of HMB\'s client and internal documents, ensuring records are properly filed, tracked, and easily retrievable.',
+    responsibilities: ['Organize, file, and track incoming and outgoing documents','Maintain document control logs and version records','Ensure compliance with document retention policies','Coordinate with departments on document requests'],
+    qualifications: ['Background in office administration, records management, or related field','Highly organized and detail-oriented','Proficient in MS Office / Google Workspace','Trustworthy with confidential documents']
   },
   'Administrative Assistant': {
     about: 'Keep HMB\'s day-to-day office operations running smoothly — coordinating schedules, documents, and internal requests across departments.',
     responsibilities: ['Manage scheduling, correspondence, and document filing','Coordinate between departments on routine administrative requests','Maintain office supplies and vendor coordination','Support HR and finance teams with clerical tasks as needed'],
     qualifications: ['Background in office administration or related field','Proficient in MS Office / Google Workspace','Organized, reliable, and able to multitask','Good interpersonal and communication skills']
   },
-  'IT Staff': {
-    about: 'Support and maintain HMB\'s internal systems and infrastructure — keeping the firm\'s tools, network, and internal software running reliably for every department.',
-    responsibilities: ['Provide day-to-day IT support across departments','Maintain and troubleshoot internal systems, network, and hardware','Support and help maintain internal software tools','Assist with basic system administration and access management'],
-    qualifications: ['Background in IT, computer science, or related field','Comfortable troubleshooting hardware, network, and software issues','Basic scripting/development exposure a plus','Dependable and able to work independently']
-  },
   'Other': {
-    about: 'Don\'t see an exact match for your background? HMB reviews general applications for future openings across tax, accounting, and administrative roles.',
+    about: 'Don\'t see an exact match for your background? HMB reviews general applications for future openings across tax, accounting, finance, and administrative roles.',
     responsibilities: ['Role and responsibilities to be discussed based on fit and current openings'],
-    qualifications: ['Relevant background in accounting, tax, business, or administration','Open to discussing how your experience fits HMB\'s current needs']
+    qualifications: ['Relevant background in accounting, tax, finance, business, or administration','Open to discussing how your experience fits HMB\'s current needs']
   }
 };
 var DEFAULT_OVERVIEW = {
@@ -446,7 +469,16 @@ photoDz.addEventListener('drop', function(e){
 // renderScreeningQuestions() immediately.
 // ═══════════════════════════════════════════════════════════
 var SCREENING_QUESTIONS = {
-  'Tax and Accounting Supervisor': [
+  'HR Generalist': [
+    'Has experience in HR administration or recruitment',
+    'Comfortable handling confidential employee information',
+    'Willing to work on-site in San Pedro, Laguna'
+  ],
+  'IT Officer': [
+    'Background in IT, Computer Science, or related field',
+    'Comfortable troubleshooting hardware, network, and software issues'
+  ],
+  'Tax & Accounting Supervisor': [
     'At least 5 years of total relevant experience in tax and accounting',
     'At least 2 years of experience as a Supervisor or as a Senior supervising Jr. Accountants',
     'Has experience working in a Tax and Accounting firm',
@@ -456,40 +488,42 @@ var SCREENING_QUESTIONS = {
     'Willing to work in San Pedro, Laguna (hybrid set up can be offered by the client)',
     'Willing to perform field work (with allowance and transportation provided)'
   ],
-  'Tax Associate': [
-    'Has relevant coursework or work experience in tax or accounting',
-    'Willing to work on-site in San Pedro, Laguna',
-    'Comfortable working under BIR filing deadlines'
-  ],
-  'Senior Tax Consultant': [
+  'Sr. Accountant': [
     'CPA',
-    'At least 5 years of relevant tax practice experience',
-    'Direct experience handling BIR audits or assessments'
+    'At least 3 years of relevant accounting experience',
+    'Has supervised or reviewed the work of junior accounting staff'
   ],
-  'Bookkeeper': [
-    'Has bookkeeping experience or relevant coursework',
-    'Comfortable using QuickBooks, Excel, or similar tools',
-    'Comfortable managing multiple client accounts at once'
+  'Jr. Accountant': [
+    'Bachelor\'s degree in Accountancy or related field',
+    'Willing to work on-site in San Pedro, Laguna'
   ],
-  'Audit Associate': [
-    'Bachelor\'s degree in Accountancy',
-    'Willing to travel to client sites for fieldwork'
+  'Finance Supervisor': [
+    'At least 3 years of relevant supervisory experience in finance',
+    'CPA or equivalent finance background'
   ],
-  'Payroll Specialist': [
-    'Has payroll processing or HR administration experience',
-    'Familiar with SSS, PhilHealth, and Pag-IBIG contribution computations'
+  'Finance Associate': [
+    'Bachelor\'s degree in Accountancy, Finance, or related field',
+    'Comfortable with Excel-based financial reporting'
   ],
-  'Business Consultant': [
-    'Comfortable engaging directly with client-owners',
-    'Familiar with Philippine business registration processes'
+  'Project Supervisor': [
+    'Has experience supervising teams or projects',
+    'Comfortable managing multiple priorities and deadlines'
+  ],
+  'Sr. Sales & Marketing Officer': [
+    'At least 3 years of relevant sales or marketing experience',
+    'Comfortable with client-facing sales activities'
+  ],
+  'Marketing Assistant': [
+    'Background in Marketing, Communications, or related field',
+    'Familiar with social media platforms and basic content creation'
+  ],
+  'Document Control Officer': [
+    'Background in office administration or records management',
+    'Highly organized and comfortable handling confidential documents'
   ],
   'Administrative Assistant': [
     'Proficient in MS Office or Google Workspace',
     'Comfortable multitasking across departments'
-  ],
-  'IT Staff': [
-    'Background in IT, computer science, or related field',
-    'Comfortable troubleshooting hardware, network, and software issues'
   ],
   'Other': []
 };
