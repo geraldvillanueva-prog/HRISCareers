@@ -31,14 +31,14 @@
   .topbar-name{font-weight:700;font-size:15px}
 
   .job-header{background:var(--card);border-bottom:1px solid var(--border);padding:32px 20px 0}
-  .job-header-inner{max-width:680px;margin:0 auto}
+  .job-header-inner{max-width:680px;margin:0 auto;text-align:center}
   .job-title{font-size:26px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
   .job-meta{color:var(--ink-soft);font-size:14px;margin-bottom:4px}
   .job-meta span:not(:last-child)::after{content:'·';margin:0 8px;color:var(--ink-faint)}
-  .job-meta b{color:var(--ink)}
+  .job-meta b{color:var(--ink);margin-right:8px}
   .job-location{color:var(--accent);font-size:14px;margin-bottom:18px}
 
-  .tabbar{display:flex;gap:26px;max-width:680px;margin:0 auto;padding:0 20px}
+  .tabbar{display:flex;justify-content:center;gap:26px;max-width:680px;margin:0 auto;padding:0 20px}
   .tabbar button{background:none;border:none;padding:12px 2px;font-family:var(--sans);font-size:14px;font-weight:600;
     color:var(--ink-faint);cursor:pointer;border-bottom:2px solid transparent;letter-spacing:.02em}
   .tabbar button.on{color:var(--sky);border-bottom-color:var(--sky)}
@@ -206,11 +206,12 @@
           <select id="position_applied" onchange="onPositionChange()">
             <option value="">Select…</option>
             <option>Tax and Accounting Supervisor</option>
-            <option>Project Associate</option>
-            <option>Marketing & Sales</option>
-            <option>Document Control Assistant</option>
-            <option>HR Assistant</option>
-            <option>Jr. Accountant</option>
+            <option>Tax Associate</option>
+            <option>Senior Tax Consultant</option>
+            <option>Bookkeeper</option>
+            <option>Audit Associate</option>
+            <option>Payroll Specialist</option>
+            <option>Business Consultant</option>
             <option>Administrative Assistant</option>
             <option>IT Staff</option>
             <option>Other</option>
@@ -649,8 +650,8 @@ function showErrorBanner(msg){
 // the two values below with your real project values from
 // supabase.com → your project → Settings → API.
 // ═══════════════════════════════════════════════════════════
-var SUPABASE_URL  = 'https://cvbjrjodlkgdnupbmncb.supabase.co'; // ← replace
-var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2Ympyam9kbGtnZG51cGJtbmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzM1ODgsImV4cCI6MjEwMTk0OTU4OH0.GQguBHqswLLdw7zoUdwnOJtBDIFdHUhDCH6dUPoHf68';              // ← replace
+var SUPABASE_URL  = 'https://your-project.supabase.co'; // ← replace
+var SUPABASE_ANON = 'your-anon-public-key';              // ← replace
 
 function supabaseConfigured(){
   return SUPABASE_URL && !SUPABASE_URL.includes('your-project') &&
