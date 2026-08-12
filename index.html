@@ -6,7 +6,7 @@
 <title>Careers — HMB Tax Firm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#f0f4f8; --card:#FFFFFF; --border:#dce3ec;
@@ -17,6 +17,7 @@
     --success:#2e7d32; --success-soft:#e8f5e9;
     --radius:6px;
     --sans:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --serif:'Fraunces', Georgia, serif;
     --mono:'IBM Plex Mono', monospace;
   }
   *{box-sizing:border-box}
@@ -25,14 +26,14 @@
   a:hover{text-decoration:underline}
 
   .topbar{background:var(--card);border-bottom:1px solid var(--border)}
-  .topbar-inner{max-width:680px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;gap:10px}
-  .topbar-mark{width:28px;height:28px;border-radius:6px;background:var(--accent);color:#fff;display:flex;
-    align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
-  .topbar-name{font-weight:700;font-size:15px}
+  .topbar-inner{max-width:680px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;justify-content:center;gap:10px}
+    .topbar-mark{width:34px;height:34px;flex-shrink:0}
+  .topbar-mark img{width:100%;height:100%;object-fit:contain;display:block}
+.topbar-name{font-family:var(--serif);font-weight:600;font-size:16px}
 
   .job-header{background:var(--card);border-bottom:1px solid var(--border);padding:32px 20px 0}
   .job-header-inner{max-width:680px;margin:0 auto;text-align:center}
-  .job-title{font-size:26px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
+  .job-title{font-family:var(--serif);font-size:28px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
   .job-meta{color:var(--ink-soft);font-size:14px;margin-bottom:4px}
   .job-meta span:not(:last-child)::after{content:'·';margin:0 8px;color:var(--ink-faint)}
   .job-meta b{color:var(--ink);margin-right:8px}
@@ -49,7 +50,7 @@
   .wrap{max-width:680px;margin:0 auto;padding:28px 20px 70px}
 
   .section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px;margin-bottom:18px}
-  .section h3{font-size:15px;font-weight:700;margin:0 0 18px}
+  .section h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 18px}
 
   .dropzone{border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center;
     cursor:pointer;background:#FAFBFC;transition:border-color .15s,background .15s}
@@ -93,6 +94,7 @@
   .jd-item-body p:last-child{margin-bottom:0}
 
   #jobinfo-facts b{color:var(--ink)}
+  .hybrid-tag{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;padding:1px 7px;border-radius:10px;font-size:12px}
   .schedule-row{padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px}
   .schedule-row:last-child{border-bottom:none}
   .schedule-row .sr-label{font-weight:700;color:var(--ink);display:block;margin-bottom:2px}
@@ -144,7 +146,7 @@
 
 <div class="topbar">
   <div class="topbar-inner">
-    <div class="topbar-mark">H</div>
+    <div class="topbar-mark"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAIAAAADnC86AAAFNUlEQVR42t1YW2wVVRRd+5yZ+5hCW0ufhIcUqRiDKBVjFBT9IVHiI/yQmBBj+cL44Y/RxI9GE6Poh8qHokLCQz8wEYIKKWpU0EJFWiig3BJsbLSF1kJfc2/vzDl7+3FvednevjXxfEwm+87MmrX2mn32viQi+C+Wmr5HsyAHJ2f6IDX9i4xFYBmKoAnNnUF7vwWG5z1lwAIYBhG0QmuPee5AcvmHQWtPVoBpkVoACIjgKLQPmHcawi2NtndAwVURZ3pyLAAztAIInb75oDHcfMx29hHFVHwGjMnlrokDW4ZW0AqdScssm38OXztgMVMDIimkAFgJeUqBrUATtEJgeUdzUPu12fRIJC9C2qV5RbxyrgJQ7CE/4iwoJACKJg0sAAGaIOBPToeb6k1zB5CmqEsKgMCwKJEVc7G6UpXl6UELADQZxlagACIEVvafD17/wTS0AZqiHowVBfgGNo2SuFpcjF+65PRfdmbU3D8ntrpSZRQaN/CVaiDg7pQ93MZP7gwRVToOCAiwBr1pLCpE7RosKKKtx+VUF7Y+rmo+59WVNJEcX1OA5Mgf4UsHw4eqqLrcUYqcGJhhLGwS80ul6iaB0LYm1B4SDGLjg7K9mS/3ID6xzyljiqYL4Rv1wadnwT14uErprOCALxWzaOMDVBjVnku7TtvvzyBSDBPB+03EhsgTM15XZ0x0ttu8WR/sPCVhQK4HiosisMD6mJWPDavornLsPy87jvLOp5wSj1QULJk6RcoB21wZdIZVWBHOdNnl29KpJCFGOg5FCC38EFGH198nj92mDv4m6/dJkCY45LkwDJarFXjUzdYZvgQC/QFSIblelkTah3JRWShVRU48xs98wX39hDhF85DuG74ajxv4SoK1AgvsIKCxbimtnIclJXTkT9nynaCIdB4sw/JUNwIE2DRsGo8uxq4ncGcZXjkoe1pQEIWOwaGJQ47C2IqsuJlrlumeQbx6mBMXBSHyI2CBFehJ72nOsCKLYGGhWnu7evcYN7UBLsVmIN0vdur6s+FdrQltffL8lwJNOg8sMIyp7QpHlNoIVJRIDeWSprgvc3KYK8OQKHskyqJnz6+JZ66/Lj7auzo52jYxkCHXhxowMAIWiIGxgL0aZ4ERiEE4FBcAObMzInDEkbKZrDRl7nUIAUlBROIOSgvE9ZAxmkMIlHiO5EekpECieTCSZcxWIiO7n0aaJKwgGTJdr0HUIUWUCpmIRIQoyynukghCFpZsPEPac9VI3TWNf4SRIQPQ9VHxA8yIjNWHapQmUiBA4pJ97/gggJ/ag+3NaRGs2+sfagsBvPhtcsepAMCzdam3jwy+8E3yos8io8wvowDT0DG0+LWbLwzYRDd3+kSESyl8lggHAt7XEmYu8wO1oTriKOr05aqxJznCeC5aLvFHTUHdOeu5BGDVfF0Sx8YDfs1SN+4QgMFQPj4ZdifZUTxZqa+s3jSqy/XLK+NPL3P7AwHQnZI1Ve7iYmdZuXvRFwCulprqyKJZ+mi7meB+/E+1Sz3cM5ssS1lc7q4AM987m5aUOEtL3TNdxlEiIneU4q0fUwVxrL01JoAajdGUuXq8S9fW1uYcO4WIGhsbEy0tnucdbWgoL5+9d++ehbcsUop2797tuhE/mTx54sTZxDkB6uq+Ck1YUVHBzEQ02RwXFxfPnTOntbW1JZHo7bnc0dEBYRGJRqMFBfm9PZdTqZQ/0Afhtt9bwyAYyzPHKnWGOoAwDF3XtdZqrW/4aVxrfDm+ASNz7w2RMb4E/Q//9cm9/gaBWrMw/ibRbQAAAABJRU5ErkJggg==" alt="HMB Tax Firm"></div>
     <div class="topbar-name">HMB Tax Firm</div>
   </div>
 </div>
@@ -172,7 +174,7 @@
       <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0">Our services include BIR tax filing, SEC, LGU, SSS, Pag-IBIG, and PhilHealth compliance, payroll processing, bookkeeping, and financial statement preparation. With a focus on accuracy and reliability, we aim to be more than just a service provider; we strive to be a long-term partner in our clients' success. Whether you're a startup or an established business, HMB Tax Firm is here to ensure that your tax and financial matters are handled with the utmost professionalism and care.</p>
     </div>
     <div class="section" style="text-align:center;padding:26px">
-      <button type="button" class="btn-submit" style="width:auto;padding:12px 32px" onclick="showTab('application')">Apply Now! →</button>
+      <button type="button" class="btn-submit" style="width:auto;padding:12px 32px" onclick="showTab('application')">Apply for this position →</button>
     </div>
   </div>
 
@@ -439,6 +441,9 @@ var JOB_INFO = {
     ]
   }
 };
+function emphasizeHybrid(text){
+  return text.replace(/(hybrid[^.,)]*)/gi, '<span class="hybrid-tag">$1</span>');
+}
 function renderJobInfo(pos){
   var section = document.getElementById('jobinfo-section');
   var info = pos ? JOB_INFO[pos] : null;
@@ -446,11 +451,11 @@ function renderJobInfo(pos){
   section.style.display='block';
   document.getElementById('jobinfo-title').textContent = pos + ' — Job Information';
   document.getElementById('jobinfo-facts').innerHTML = info.facts.map(function(f){
-    return '<div><b>'+f[0]+':</b> '+f[1]+'</div>';
+    return '<div><b>'+f[0]+':</b> '+emphasizeHybrid(f[1])+'</div>';
   }).join('');
   var scheduleHtml = '<h4 style="font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 4px;text-transform:uppercase;letter-spacing:.03em">Work Schedule</h4>';
   scheduleHtml += info.schedule.map(function(s){
-    return '<div class="schedule-row"><span class="sr-label">'+s[0]+'</span><span class="sr-value">'+s[1]+'</span></div>';
+    return '<div class="schedule-row"><span class="sr-label">'+s[0]+'</span><span class="sr-value">'+emphasizeHybrid(s[1])+'</span></div>';
   }).join('');
   document.getElementById('jobinfo-schedule').innerHTML = scheduleHtml;
 }
@@ -723,7 +728,7 @@ function renderScreeningQuestions(pos){
   }
   wrap.innerHTML = qs.map(function(text, i){
     return '<div class="q">'
-      + '<label>'+text+' <span class="req">*</span></label>'
+      + '<label>'+emphasizeHybrid(text)+' <span class="req">*</span></label>'
       + '<div class="yn-toggle" id="yn-'+i+'" data-question="'+text.replace(/"/g,'&quot;')+'">'
         + '<button type="button" onclick="setYN('+i+',true)">YES</button>'
         + '<button type="button" onclick="setYN('+i+',false)">NO</button>'
