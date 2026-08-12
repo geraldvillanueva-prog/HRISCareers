@@ -78,6 +78,25 @@
   .field input.err,.field select.err,.field textarea.err{border-color:var(--danger)}
 
   .q{margin-bottom:18px}
+
+  .jd-accordion{border-top:1px solid var(--border)}
+  .jd-item{border-bottom:1px solid var(--border)}
+  .jd-item-header{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;cursor:pointer;
+    font-size:14.5px;font-weight:700;color:var(--ink)}
+  .jd-item-header .jd-icon{font-size:16px;color:var(--accent);font-weight:400;width:20px;text-align:center;flex-shrink:0}
+  .jd-item-body{display:none;padding:0 2px 16px;color:var(--ink-soft);font-size:13.5px;line-height:1.7}
+  .jd-item-body.open{display:block}
+  .jd-item-body ul{margin:0 0 12px;padding-left:20px}
+  .jd-item-body ul:last-child{margin-bottom:0}
+  .jd-item-body h4{font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 6px;text-transform:uppercase;letter-spacing:.03em}
+  .jd-item-body p{margin:0 0 10px}
+  .jd-item-body p:last-child{margin-bottom:0}
+
+  #jobinfo-facts b{color:var(--ink)}
+  .schedule-row{padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+  .schedule-row:last-child{border-bottom:none}
+  .schedule-row .sr-label{font-weight:700;color:var(--ink);display:block;margin-bottom:2px}
+  .schedule-row .sr-value{color:var(--ink-soft)}
   .q label{display:block;font-size:13.5px;font-weight:600;margin-bottom:8px}
   .radio-row{display:flex;gap:20px;flex-wrap:wrap}
   .radio-opt{display:flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer;margin-right:6px}
@@ -152,14 +171,6 @@
       <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0 0 14px">At HMB Tax Firm, we pride ourselves on our ability to deliver tailored solutions that meet the unique needs of each client.</p>
       <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0">Our services include BIR tax filing, SEC, LGU, SSS, Pag-IBIG, and PhilHealth compliance, payroll processing, bookkeeping, and financial statement preparation. With a focus on accuracy and reliability, we aim to be more than just a service provider; we strive to be a long-term partner in our clients' success. Whether you're a startup or an established business, HMB Tax Firm is here to ensure that your tax and financial matters are handled with the utmost professionalism and care.</p>
     </div>
-    <div class="section">
-      <h3>Responsibilities</h3>
-      <ul id="ov-responsibilities" style="color:var(--ink-soft);font-size:14px;line-height:1.8;margin:0;padding-left:20px"></ul>
-    </div>
-    <div class="section">
-      <h3>Qualifications</h3>
-      <ul id="ov-qualifications" style="color:var(--ink-soft);font-size:14px;line-height:1.8;margin:0;padding-left:20px"></ul>
-    </div>
     <div class="section" style="text-align:center;padding:26px">
       <button type="button" class="btn-submit" style="width:auto;padding:12px 32px" onclick="showTab('application')">Apply for this position →</button>
     </div>
@@ -167,6 +178,33 @@
 
   <div class="tabpanel" id="tabpanel-application">
   <form id="apply-form" novalidate>
+
+    <div class="section">
+      <div class="field full" style="margin-bottom:0"><label>Position Applied For <span class="req">*</span></label>
+        <select id="position_applied" onchange="onPositionChange()">
+          <option value="">Select…</option>
+          <option>HR Generalist</option>
+          <option>IT Officer</option>
+          <option>Tax & Accounting Supervisor</option>
+          <option>Sr. Accountant</option>
+          <option>Jr. Accountant</option>
+          <option>Finance Supervisor</option>
+          <option>Finance Associate</option>
+          <option>Project Supervisor</option>
+          <option>Sr. Sales & Marketing Officer</option>
+          <option>Marketing Assistant</option>
+          <option>Document Control Officer</option>
+          <option>Administrative Assistant</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section" id="jobinfo-section" style="display:none">
+      <h3 id="jobinfo-title">Job Information</h3>
+      <div id="jobinfo-facts" style="display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font-size:13.5px;color:var(--ink-soft);margin-bottom:14px"></div>
+      <div id="jobinfo-schedule"></div>
+    </div>
 
     <div class="section">
       <h3>Personal Information</h3>
@@ -205,25 +243,12 @@
             <button type="button" id="photo-clear" aria-label="Remove photo">✕</button>
           </div>
         </div>
-        <div class="field"><label>Position Applied For <span class="req">*</span></label>
-          <select id="position_applied" onchange="onPositionChange()">
-            <option value="">Select…</option>
-            <option>HR Generalist</option>
-            <option>IT Officer</option>
-            <option>Tax & Accounting Supervisor</option>
-            <option>Sr. Accountant</option>
-            <option>Jr. Accountant</option>
-            <option>Finance Supervisor</option>
-            <option>Finance Associate</option>
-            <option>Project Supervisor</option>
-            <option>Sr. Sales & Marketing Officer</option>
-            <option>Marketing Assistant</option>
-            <option>Document Control Officer</option>
-            <option>Administrative Assistant</option>
-            <option>Other</option>
-          </select>
-        </div>
       </div>
+    </div>
+
+    <div class="section" id="jd-section" style="display:none">
+      <h3 id="jd-title">Job Description</h3>
+      <div class="jd-accordion" id="jd-accordion"></div>
     </div>
 
     <div class="section">
@@ -383,10 +408,165 @@ var DEFAULT_OVERVIEW = {
   responsibilities: ['Responsibilities vary by role — select a specific position for details, or apply generally and we\'ll match you to a fitting opening.'],
   qualifications: ['Requirements vary by role — see the Application tab to tell us about your background and experience.']
 };
-function renderOverview(pos){
+
+// ═══════════════════════════════════════════════════════════
+// JOB DESCRIPTION ACCORDION (Application tab) — shown once a
+// position is selected. "Tax & Accounting Supervisor" has the full
+// detailed breakdown; other roles fall back to a simpler version
+// built from the same data already used on the Overview tab.
+// ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// JOB INFO — shown at the top of the Application tab once a position
+// is selected: quick facts (location, job type, reporting line) plus
+// the work schedule. Only positions with this data supplied will show
+// the block; others simply keep it hidden.
+// ═══════════════════════════════════════════════════════════
+var JOB_INFO = {
+  'Tax & Accounting Supervisor': {
+    facts: [
+      ['Location', 'San Pedro, Laguna'],
+      ['Job Type', 'Full-Time, Permanent, Hybrid Schedule'],
+      ['Industry', 'Accounting & Tax Services'],
+      ['Reports to', 'General Manager'],
+      ['Directly Supervises', 'Four (4) Junior Accountants'],
+      ['Coordinates with', 'Finance, Compliance, and Client Service Teams']
+    ],
+    schedule: [
+      ['Tax Season (January–May)', 'Monday–Saturday · 8:00 AM–5:00 PM'],
+      ['Off-Peak Season (June–December)', 'Monday–Friday · 7:00 AM–5:30 PM (Compressed Work Week)'],
+      ['Field Work', 'Up to 2 days per week, depending on business needs, including client visits and onsite meetings']
+    ]
+  }
+};
+function renderJobInfo(pos){
+  var section = document.getElementById('jobinfo-section');
+  var info = pos ? JOB_INFO[pos] : null;
+  if(!info){ section.style.display='none'; return; }
+  section.style.display='block';
+  document.getElementById('jobinfo-title').textContent = pos + ' — Job Information';
+  document.getElementById('jobinfo-facts').innerHTML = info.facts.map(function(f){
+    return '<div><b>'+f[0]+':</b> '+f[1]+'</div>';
+  }).join('');
+  var scheduleHtml = '<h4 style="font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 4px;text-transform:uppercase;letter-spacing:.03em">Work Schedule</h4>';
+  scheduleHtml += info.schedule.map(function(s){
+    return '<div class="schedule-row"><span class="sr-label">'+s[0]+'</span><span class="sr-value">'+s[1]+'</span></div>';
+  }).join('');
+  document.getElementById('jobinfo-schedule').innerHTML = scheduleHtml;
+}
+
+var JD_DETAILS = {
+  'Tax & Accounting Supervisor': [
+    { title:'Key Responsibilities', groups:[
+      { heading:'Accounting & Tax Compliance', items:[
+        'Lead onboarding of new Monthly Retainer Engagement (MRE) clients, including kickoff meetings, account setup, compliance calendars, and team briefing',
+        'Oversee bookkeeping, working papers, tax return preparation and filing, payroll processing, commission reconciliation, check vouchers, and payables monitoring',
+        'Review tax returns and ensure accurate record-keeping and compliance with BIR requirements',
+        'Maintain accounting systems, compliance checklists, templates, engagement letters, and client documentation',
+        'Prepare client reports and proactively address compliance issues'
+      ]},
+      { heading:'Technical Accounting & Financial Statements', items:[
+        'Oversee preparation of Annual Financial Statements and coordinate with external auditors and BOA-accredited CPAs',
+        'Review complex and non-routine journal entries, accounting treatments, disclosures, and supporting schedules',
+        'Ensure compliance with PFRS, including PFRS for SMEs',
+        'Identify accounting risks and recommend corrective actions'
+      ]},
+      { heading:'Tax Advisory & Client Support', items:[
+        'Conduct tax health assessments and recommend strategies to minimize tax liabilities while maintaining compliance',
+        'Advise clients on tax implications of business decisions and resolve complex tax matters',
+        'Conduct client meetings and visitations and supervise Junior Accountants during engagements',
+        'Support the Compliance Department on new business registrations, including VAT vs. Non-VAT registration, books of accounts, and initial compliance requirements'
+      ]},
+      { heading:'BIR Audit, Assessment & LOA Defense', items:[
+        'Review routine BIR, LGU, SSS, PHIC, and HDMF notices prepared by Junior Accountants',
+        'Personally handle complex or escalated BIR LOA and assessment cases, with an initial working cap of 5–8 active complex cases at a time',
+        'Coordinate directly with BIR examiners, group supervisors, and revenue officers',
+        'Oversee reconciliation, documentation, audit workpapers, and BIR submissions',
+        'Prepare protest letters, position papers, PAN/FAN responses, tax memorandums, and other formal replies for complex cases',
+        'Represent clients during BIR conferences and work toward favorable resolutions and reduced assessments',
+        'Conduct internal tax health checks to identify potential exposure before an LOA is issued'
+      ]},
+      { heading:'Team Leadership & Development', items:[
+        'Lead, mentor, and develop a team of four (4) Junior Accountants',
+        'Assign and review work to ensure accuracy, timeliness, and quality of client service',
+        'Establish team objectives, SOPs, compliance checklists, and quality control standards',
+        'Conduct one-on-ones and performance reviews and provide coaching and feedback',
+        'Participate in hiring and onboarding of new Accounting team members',
+        'Conduct training on new BIR issuances, including RRs, RMOs, and RMCs, and recommend process improvements'
+      ]}
+    ]},
+    { title:'Qualifications', items:[
+      'At least 5 years of relevant experience, including 2 years as an engagement in-charge, team lead, or direct supervisor',
+      'Strong knowledge of PFRS/PFRS for SMEs, BIR regulations, RRs, RMOs, and RMCs',
+      'Must have experience in a Tax and Accounting firm — candidates from private companies will not be considered',
+      'Experience handling BIR audits, LOAs, or tax assessments is a strong advantage',
+      'Experience leading, coaching, or reviewing Junior Accountants is preferred; candidates without formal direct-report experience are welcome to apply',
+      'Strong technical writing skills, particularly in tax memorandums, protest letters, and client advisory notes',
+      'Comfortable representing clients in discussions with BIR examiners and revenue officers',
+      'Able to thrive in an SME environment and willing to perform hands-on accounting and tax work — not just review',
+      'Must be capable of developing and taking a growing team of Junior Accountants to the next level'
+    ]},
+    { title:'Advantageous but Not Required', items:[
+      'CPA',
+      '2+ years of experience in a Big 4 or reputable audit/advisory firm',
+      'Tax practice experience is strongly preferred over audit-only experience',
+      'Senior-level candidates who are not yet at Manager level are welcome to apply',
+      'Proficiency in Google Sheets, Xero, or other accounting tools'
+    ]},
+    { title:'Key Performance Indicators', pairs:[
+      { label:'Accounting', text:'On-time filing and deadline compliance, financial statement quality, reduced audit revisions, and Junior Accountant development and retention.' },
+      { label:'BIR Defense', text:'Successful resolution of complex LOA and assessment cases, including assessment reduction and resolution time.' },
+      { label:'Client Experience', text:'Client satisfaction and complaint rate.' }
+    ]}
+  ]
+};
+function jdFallbackDetails(pos){
   var data = (pos && JOB_OVERVIEWS[pos]) ? JOB_OVERVIEWS[pos] : DEFAULT_OVERVIEW;
-  document.getElementById('ov-responsibilities').innerHTML = data.responsibilities.map(function(r){return '<li>'+r+'</li>';}).join('');
-  document.getElementById('ov-qualifications').innerHTML = data.qualifications.map(function(q){return '<li>'+q+'</li>';}).join('');
+  return [
+    { title:'About the Role', text: data.about },
+    { title:'Responsibilities', items: data.responsibilities },
+    { title:'Qualifications', items: data.qualifications }
+  ];
+}
+function jdItemBodyHTML(item){
+  var html = '';
+  if(item.text) html += '<p>'+item.text+'</p>';
+  if(item.items) html += '<ul>'+item.items.map(function(i){return '<li>'+i+'</li>';}).join('')+'</ul>';
+  if(item.groups){
+    item.groups.forEach(function(g){
+      html += '<h4>'+g.heading+'</h4><ul>'+g.items.map(function(i){return '<li>'+i+'</li>';}).join('')+'</ul>';
+    });
+  }
+  if(item.pairs){
+    item.pairs.forEach(function(p){
+      html += '<p><strong>'+p.label+':</strong> '+p.text+'</p>';
+    });
+  }
+  return html;
+}
+function renderJobDescription(pos){
+  var section = document.getElementById('jd-section');
+  var wrap = document.getElementById('jd-accordion');
+  if(!pos){ section.style.display='none'; return; }
+  section.style.display='block';
+  document.getElementById('jd-title').textContent = pos + ' — Job Description';
+  var items = JD_DETAILS[pos] || jdFallbackDetails(pos);
+  wrap.innerHTML = items.map(function(item, i){
+    return '<div class="jd-item">'
+      + '<div class="jd-item-header" onclick="toggleJdItem('+i+')">'
+        + '<span>'+item.title+'</span><span class="jd-icon" id="jd-icon-'+i+'">'+(i===0?'−':'+')+'</span>'
+      + '</div>'
+      + '<div class="jd-item-body'+(i===0?' open':'')+'" id="jd-body-'+i+'">'+jdItemBodyHTML(item)+'</div>'
+      + '</div>';
+  }).join('');
+}
+function toggleJdItem(i){
+  var body = document.getElementById('jd-body-'+i);
+  var icon = document.getElementById('jd-icon-'+i);
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  icon.textContent = isOpen ? '+' : '−';
+}
+function renderOverview(pos){
   document.getElementById('job-code').textContent = 'HMB-' + (pos ? pos.toUpperCase().replace(/[^A-Z]/g,'').slice(0,4) : 'CAREERS');
 }
 
@@ -573,6 +753,8 @@ function onPositionChange(){
   var pos = v('position_applied');
   renderOverview(pos);
   renderScreeningQuestions(pos);
+  renderJobDescription(pos);
+  renderJobInfo(pos);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -592,6 +774,8 @@ function onPositionChange(){
   }
   renderOverview(pos);
   renderScreeningQuestions(pos);
+  renderJobDescription(pos);
+  renderJobInfo(pos);
 })();
 
 // ═══════════════════════════════════════════════════════════
