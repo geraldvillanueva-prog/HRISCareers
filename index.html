@@ -146,8 +146,11 @@
 
   <div class="tabpanel on" id="tabpanel-overview">
     <div class="section">
-      <h3>About the Role</h3>
-      <p id="ov-about" style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0"></p>
+      <h3>About HMB Tax Firm</h3>
+      <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0 0 14px">HMB Tax Firm is a trusted partner for businesses in the Philippines, specializing in strategic tax compliance, financial reporting, and advisory services. We are dedicated to helping our clients navigate the complexities of the tax system while ensuring that their financial operations run smoothly and efficiently.</p>
+      <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0 0 14px">Our expert team is committed to providing timely updates, clear communication, and continuous growth opportunities, making sure that our clients can focus on what they do best — growing their businesses.</p>
+      <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0 0 14px">At HMB Tax Firm, we pride ourselves on our ability to deliver tailored solutions that meet the unique needs of each client.</p>
+      <p style="color:var(--ink-soft);font-size:14px;line-height:1.7;margin:0">Our services include BIR tax filing, SEC, LGU, SSS, Pag-IBIG, and PhilHealth compliance, payroll processing, bookkeeping, and financial statement preparation. With a focus on accuracy and reliability, we aim to be more than just a service provider; we strive to be a long-term partner in our clients' success. Whether you're a startup or an established business, HMB Tax Firm is here to ensure that your tax and financial matters are handled with the utmost professionalism and care.</p>
     </div>
     <div class="section">
       <h3>Responsibilities</h3>
@@ -382,7 +385,6 @@ var DEFAULT_OVERVIEW = {
 };
 function renderOverview(pos){
   var data = (pos && JOB_OVERVIEWS[pos]) ? JOB_OVERVIEWS[pos] : DEFAULT_OVERVIEW;
-  document.getElementById('ov-about').textContent = data.about;
   document.getElementById('ov-responsibilities').innerHTML = data.responsibilities.map(function(r){return '<li>'+r+'</li>';}).join('');
   document.getElementById('ov-qualifications').innerHTML = data.qualifications.map(function(q){return '<li>'+q+'</li>';}).join('');
   document.getElementById('job-code').textContent = 'HMB-' + (pos ? pos.toUpperCase().replace(/[^A-Z]/g,'').slice(0,4) : 'CAREERS');
