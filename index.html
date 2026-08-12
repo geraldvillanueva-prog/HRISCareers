@@ -254,10 +254,11 @@
     <div class="section">
       <h3>Profile</h3>
       <div class="field full" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <label style="margin:0">Education <span class="opt">(optional)</span></label>
+        <label style="margin:0">Education <span class="req">*</span></label>
         <button type="button" class="btn-add-row" onclick="addEducationRow()">+ Add</button>
       </div>
       <div id="education-rows"></div>
+      <div id="education-err" style="color:var(--danger);font-size:12px;display:none;margin-top:-4px;margin-bottom:8px">Please add at least one education entry.</div>
 
       <div class="field full" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;margin-top:8px">
         <label style="margin:0">Experience <span class="opt">(optional)</span></label>
@@ -850,6 +851,9 @@ function validateForm(){
   });
   if(v('email_address') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email_address'))){ markErr('email_address'); ok=false; }
   if(!fileInput.files.length){ document.getElementById('dropzone').style.borderColor='var(--danger)'; ok = false; }
+  var eduErr = document.getElementById('education-err');
+  if(collectEducation().length===0){ eduErr.style.display='block'; ok = false; }
+  else{ eduErr.style.display='none'; }
   var screening = getScreeningAnswers();
   if(!screening.complete) ok = false;
   if(!document.getElementById('consent_check').checked) ok = false;
