@@ -884,137 +884,43 @@ function showErrorBanner(msg){
 }
 
 // ═══════════════════════════════════════════════════════════
-// SUPABASE INTEGRATION
-// Writes to the same hmb_applicants table the HRIS Recruitment module
-// (admin.html → Recruitment / ATS → Applicants) reads from. Fill in
-// the two values below with your real project values from
-// supabase.com → your project → Settings → API.
+// APPLICATION SUBMISSION
+// Uploads directly to your own server (which forwards resume/photo files
+// to Google Drive and saves everything else in your HRIS database) —
+// replaces the old direct-to-Supabase flow.
 // ═══════════════════════════════════════════════════════════
-var SUPABASE_URL  = 'https://cvbjrjodlkgdnupbmncb.supabase.co'; // ← replace
-var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN2Ympyam9kbGtnZG51cGJtbmNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNzM1ODgsImV4cCI6MjEwMTk0OTU4OH0.GQguBHqswLLdw7zoUdwnOJtBDIFdHUhDCH6dUPoHf68';              // ← replace
+var CAREERS_API_URL = 'https://hmbmc1988.com/api/careers/apply'; // ← your server's domain
 
-function supabaseConfigured(){
-  return SUPABASE_URL && !SUPABASE_URL.includes('your-project') &&
-         SUPABASE_ANON && !SUPABASE_ANON.includes('your-anon');
-}
 function genCode(){
   var yr = new Date().getFullYear();
   var seq = String(Math.floor(Math.random()*9000)+1000);
   return 'APP-'+yr+'-'+seq;
 }
 
-async function ensureResumeBucket(){
-  try{
-    await fetch(SUPABASE_URL.replace(/\/$/,'')+'/storage/v1/bucket', {
-      method: 'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'apikey':        SUPABASE_ANON,
-        'Authorization': 'Bearer '+SUPABASE_ANON
-      },
-      body: JSON.stringify({ id:'resumes', name:'resumes', public:true })
-    });
-  }catch(e){ /* bucket likely already exists — safe to ignore */ }
-}
-
-async function uploadResume(file){
-  if(supabaseConfigured()){
-    try{
-      var base = SUPABASE_URL.replace(/\/$/,'');
-      var fileName = Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9.\-_]/g,'_');
-      var r = await fetch(base+'/storage/v1/object/resumes/'+fileName, {
-        method: 'POST',
-        headers: {
-          'apikey':        SUPABASE_ANON,
-          'Authorization': 'Bearer '+SUPABASE_ANON,
-          'Content-Type':  file.type || 'application/octet-stream'
-        },
-        body: file
-      });
-      if(r.ok){ return base+'/storage/v1/object/public/resumes/'+fileName; }
-    }catch(e){ console.warn('Supabase Storage error:', e.message); }
-  }
-  if(CLOUDINARY_ENABLED && CLOUD_NAME !== 'your_cloud_name'){
-    try{
-      var fd = new FormData();
-      fd.append('file', file);
-      fd.append('upload_preset', UPLOAD_PRESET);
-      fd.append('folder','hmb-resumes');
-      var rc = await fetch('https://api.cloudinary.com/v1_1/'+CLOUD_NAME+'/raw/upload',{method:'POST',body:fd});
-      if(rc.ok){ var d=await rc.json(); return d.secure_url; }
-    }catch(e){ console.warn('Cloudinary error:', e.message); }
-  }
-  if(file.size > 5*1024*1024){
-    throw new Error('Résumé file is '+Math.round(file.size/1024/1024)+'MB. Please compress your PDF to under 5MB and try again.');
-  }
-  return new Promise(function(resolve, reject){
-    var reader = new FileReader();
-    reader.onload  = function(e){ resolve(e.target.result); };
-    reader.onerror = function(){ reject(new Error('Could not read file.')); };
-    reader.readAsDataURL(file);
+async function submitApplication(payload, resumeFile, photoFile){
+  var fd = new FormData();
+  Object.keys(payload).forEach(function(key){
+    var val = payload[key];
+    fd.append(key, (typeof val === 'object' && val !== null) ? JSON.stringify(val) : (val == null ? '' : val));
   });
-}
+  if(resumeFile) fd.append('resume', resumeFile);
+  if(photoFile) fd.append('photo', photoFile);
 
-var CLOUDINARY_ENABLED = false;
-var CLOUD_NAME          = 'your_cloud_name';
-var UPLOAD_PRESET       = 'your_upload_preset';
-
-async function saveToSupabase(payload, resumeUrl, photoUrl){
-  if(!supabaseConfigured()){
-    throw new Error('This form has not been connected to a database yet. Edit SUPABASE_URL and SUPABASE_ANON near the top of the script in index.html with your real Supabase project values.');
-  }
-  var rec = {
-    applicant_code:        genCode(),
-    full_name:             payload.first_name+' '+payload.last_name,
-    first_name:            payload.first_name,
-    last_name:             payload.last_name,
-    headline:              payload.headline||null,
-    address:               payload.address,
-    mobile_number:         '+63'+payload.mobile_number,
-    email_address:         payload.email_address,
-    position_applied:      payload.position_applied,
-    expected_salary:       parseFloat(payload.expected_salary)||0,
-    education:             payload.education||[],
-    experience:            payload.experience||[],
-    summary:               payload.summary||null,
-    cover_letter:          payload.cover_letter||null,
-    screening_answers:     payload.screening_answers||{},
-    resume_url:            resumeUrl||null,
-    photo_url:             photoUrl||null,
-    status:                'New Applicant',
-    source:                'Application Form (Web)',
-    rejection_reason:      null,
-    offer_salary:          null,
-    offer_start_date:      null,
-    employee_id:           null,
-    employee_code:         null
-  };
   var r;
   try{
-    r = await fetch(SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/hmb_applicants', {
-      method:  'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'apikey':        SUPABASE_ANON,
-        'Authorization': 'Bearer '+SUPABASE_ANON,
-        'Prefer':        'return=representation'
-      },
-      body: JSON.stringify(rec)
-    });
+    r = await fetch(CAREERS_API_URL, { method: 'POST', body: fd });
   }catch(netErr){
-    throw new Error('Network error — could not reach Supabase. Check your internet connection. Detail: '+netErr.message);
+    throw new Error('Network error — could not reach the application server. Check your internet connection. Detail: '+netErr.message);
   }
   if(!r.ok){
-    var errText = await r.text();
-    if(r.status===401||r.status===403) throw new Error('Supabase key is invalid or expired (HTTP '+r.status+'). Check SUPABASE_ANON near the top of the script in index.html.');
-    if(r.status===404) throw new Error('Table "hmb_applicants" not found (HTTP 404). Run the SQL setup in your Supabase SQL Editor first.');
-    throw new Error('Supabase error ('+r.status+'): '+errText);
+    var errData;
+    try{ errData = await r.json(); }catch(e){ errData = {}; }
+    throw new Error(errData.error || ('Server error (HTTP '+r.status+')'));
   }
-  var rows = await r.json();
-  return rows[0] || rec;
+  return r.json();
 }
 
-if(supabaseConfigured()){ ensureResumeBucket(); }
+// (No bucket setup needed — resumes/photos now go through your own server to Google Drive)
 
 // ═══════════════════════════════════════════════════════════
 // SUBMIT HANDLER
@@ -1034,24 +940,13 @@ document.getElementById('apply-form').addEventListener('submit', async function(
   document.getElementById('submit-text').textContent = 'Submitting…';
 
   try{
-    var resumeUrl = '';
-    if(fileInput.files[0]){
-      document.getElementById('submit-text').textContent = 'Uploading résumé…';
-      resumeUrl = await uploadResume(fileInput.files[0]);
-    }
-    var photoUrl = '';
-    if(photoInput.files[0]){
-      document.getElementById('submit-text').textContent = 'Uploading photo…';
-      photoUrl = await uploadResume(photoInput.files[0]);
-    }
-
     var screening = getScreeningAnswers();
     var payload = {
       first_name:            v('first_name'),
       last_name:             v('last_name'),
       headline:              v('headline'),
       address:               v('address'),
-      mobile_number:         v('mobile_number'),
+      mobile_number:         '+63'+v('mobile_number'),
       email_address:         v('email_address'),
       position_applied:      v('position_applied'),
       expected_salary:       v('expected_salary'),
@@ -1062,8 +957,8 @@ document.getElementById('apply-form').addEventListener('submit', async function(
       screening_answers:     screening.answers
     };
 
-    document.getElementById('submit-text').textContent = 'Saving application…';
-    var saved = await saveToSupabase(payload, resumeUrl, photoUrl);
+    document.getElementById('submit-text').textContent = 'Uploading & saving…';
+    var saved = await submitApplication(payload, fileInput.files[0]||null, photoInput.files[0]||null);
 
     document.getElementById('success-code').textContent = saved.applicant_code || genCode();
     document.getElementById('apply-form').style.display = 'none';
